@@ -1,0 +1,67 @@
+.signUp {
+    
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100svw;
+    height: 100svh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+.modalContent {
+    max-width: 50svw;
+    background-color: #636969;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form > label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form > label > input {
+    border: none;
+    background-color: #636969;
+    border-bottom: 0.13rem solid black;
+    padding: 0.5rem;
+    margin: 0 1rem;
+}
+
+.form > label > input:focus {
+    outline: none;
+    border-color: #29afa4;
+}
+
+.form > button {
+    background-color: #429b9b;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.close {
+    display: flex;
+    align-self: flex-end;
+    font-size: 24px;
+    cursor: pointer;
+}
