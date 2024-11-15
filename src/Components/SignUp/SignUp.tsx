@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth';
+import {auth} from '../../firebase/config';
 import styles from "./SignUp.module.css";
 // import './SignUp.css';
 
@@ -12,14 +14,14 @@ const SignUp = () => {
     const handleClose = () => { setIsOpen(false) };
     const handleOpen = () => { setIsOpen(true) };
 
-    console.log(isOpen);
-
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
         confirmPassword: ''
     });
+
+    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
     useEffect(() => {
         if (isOpen) {
