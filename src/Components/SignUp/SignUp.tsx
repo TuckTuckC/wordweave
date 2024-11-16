@@ -1,16 +1,24 @@
 'use client'
 
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/config'
 import styles from "./SignUp.module.css";
-// import './SignUp.css';
 
 const SignUp = () => {
 
+    //Sign In/Up Modal State
     const [isOpen, setIsOpen] = useState(false);
     const [authAction, setAuthAction] = useState('');
+    
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
 
+    //Closes modal and resets input values
     const handleClose = () => {
         setIsOpen(false); setFormData({
             username: '',
@@ -21,15 +29,7 @@ const SignUp = () => {
     };
     const handleOpen = () => { setIsOpen(true) };
 
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    });
-
-    // const [createUserWithEmailAndPassword] = createUserWithEmailAndPassword(auth);
-
+    //Listens for escape key to close modal
     useEffect(() => {
         if (isOpen) {
             const handleEscape = (event: KeyboardEvent) => {
@@ -46,6 +46,7 @@ const SignUp = () => {
         }
     }, [isOpen]);
 
+    //Keep form data live and reactive
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -54,6 +55,7 @@ const SignUp = () => {
         });
     };
 
+    //Either registers the user or signs them in
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (authAction === 'signUp') {
@@ -68,9 +70,7 @@ const SignUp = () => {
                     // ...
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
+                    console.log(`Encountered Error: (${error.code}) with message: "${error.message}"`);
                 });
 
         } else {
