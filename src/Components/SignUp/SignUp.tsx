@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth';
-import {auth} from '../../firebase/config';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { auth } from '../../firebase/config'
 import styles from "./SignUp.module.css";
 // import './SignUp.css';
 
@@ -11,7 +11,14 @@ const SignUp = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [authAction, setAuthAction] = useState('');
 
-    const handleClose = () => { setIsOpen(false) };
+    const handleClose = () => {
+        setIsOpen(false); setFormData({
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+        })
+    };
     const handleOpen = () => { setIsOpen(true) };
 
     const [formData, setFormData] = useState({
@@ -21,7 +28,7 @@ const SignUp = () => {
         confirmPassword: ''
     });
 
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    // const [createUserWithEmailAndPassword] = createUserWithEmailAndPassword(auth);
 
     useEffect(() => {
         if (isOpen) {
@@ -49,8 +56,38 @@ const SignUp = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log(formData);
+        if (authAction === 'signUp') {
+            console.log('Signing Up: ', formData)
+
+            createUserWithEmailAndPassword(auth, formData.email, formData.password)
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    console.log(user);
+                    
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
+                });
+
+        } else {
+            console.log('Signing In: ', formData)
+
+            signInWithEmailAndPassword(auth, formData.email, formData.password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log(user);
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                });
+        }
     };
 
     return (
@@ -60,7 +97,7 @@ const SignUp = () => {
                 <button onClick={() => { handleOpen(); setAuthAction('signUp') }}>
                     Sign Up
                 </button>
-                <button onClick={() => {handleOpen(); setAuthAction('signIn')}}>
+                <button onClick={() => { handleOpen(); setAuthAction('signIn') }}>
                     Sign In
                 </button>
             </div>
