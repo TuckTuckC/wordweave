@@ -10,7 +10,7 @@ const SignUp = () => {
     //Sign In/Up Modal State
     const [isOpen, setIsOpen] = useState(false);
     const [authAction, setAuthAction] = useState('');
-    
+
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -66,7 +66,7 @@ const SignUp = () => {
                     // Signed up 
                     const user = userCredential.user;
                     console.log(user);
-                    
+
                     // ...
                 })
                 .catch((error) => {
@@ -94,9 +94,9 @@ const SignUp = () => {
         <div className={styles.signUp}>
             {/* Conditional rendering: if no user is logged in */}
             <div>
-                <button onClick={() => { handleOpen(); setAuthAction('signUp') }}>
+                {/* <button onClick={() => { handleOpen(); setAuthAction('signUp') }}>
                     Sign Up
-                </button>
+                </button> */}
                 <button onClick={() => { handleOpen(); setAuthAction('signIn') }}>
                     Sign In
                 </button>
@@ -112,28 +112,40 @@ const SignUp = () => {
                 <div className={styles.modal}>
                     <div className={styles.modalContent}>
                         <span className={styles.close} onClick={handleClose}>&times;</span>
-                        <h2>{authAction === 'signUp' ? 'Sign Up' : 'Sign In'}</h2>
-                        <form className={styles.form} onSubmit={handleSubmit}>
-                            <label>
-                                Username:
-                                <input type="text" name="username" value={formData.username} onChange={handleChange} required />
-                            </label>
-                            <label>
-                                Email:
-                                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-                            </label>
-                            <label>
-                                Password:
-                                <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-                            </label>
-                            {authAction === 'signUp' && (
+                        <div className={styles.formContainer}>
+                            <h2>{authAction === 'signUp' ? 'Sign Up' : 'Sign In'}</h2>
+                            <form className={styles.form} onSubmit={handleSubmit}>
                                 <label>
-                                    Confirm Password:
-                                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                                    Username:
+                                    <input type="text" name="username" value={formData.username} onChange={handleChange} required />
                                 </label>
-                            )}
-                            <button type="submit">Sign Up</button>
-                        </form>
+                                <label>
+                                    Email:
+                                    <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                                </label>
+                                <label>
+                                    Password:
+                                    <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+                                </label>
+                                {authAction === 'signUp' && (
+                                    <label>
+                                        Confirm Password:
+                                        <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                                    </label>
+                                )}
+                                {authAction === 'signIn' && (
+                                    <button className={styles.btn} onClick={() => { handleOpen(); setAuthAction('signUp') }}>
+                                        Sign Up Instead
+                                    </button>
+                                )}
+                                {authAction === 'signUp' && (
+                                    <button className={styles.btn} onClick={() => { handleOpen(); setAuthAction('signIn') }}>
+                                        Sign In Instead
+                                    </button>
+                                )}
+                                <button type="submit">Sign Up</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}

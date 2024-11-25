@@ -17,13 +17,15 @@
 }
 
 .modalContent {
-    max-width: 50svw;
+    width: 30svw;
     background-color: #636969;
-    padding: 1rem;
+    padding: 1rem 1rem 2rem 1rem;
     border-radius: 1rem;
     display: flex;
+    gap: 15%;
     flex-direction: column;
     align-items: center;
+    justify-content: flex;
 }
 
 .form {
@@ -51,7 +53,7 @@
     border-color: #29afa4;
 }
 
-.form > button {
+.form > button, .btn {
     background-color: #429b9b;
     border: none;
     padding: 0.5rem;
@@ -59,9 +61,15 @@
     cursor: pointer;
 }
 
+.btn {
+    background-color: #9b8342 !important;
+}
+
 .close {
     display: flex;
+    position: relative;
     align-self: flex-end;
+    justify-self: flex-start;
     font-size: 24px;
     cursor: pointer;
 }
