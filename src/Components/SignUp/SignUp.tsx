@@ -92,13 +92,9 @@ const SignUp = () => {
 
     return (
         <div className={styles.signUp}>
-            {/* Conditional rendering: if no user is logged in */}
             <div>
-                {/* <button onClick={() => { handleOpen(); setAuthAction('signUp') }}>
-                    Sign Up
-                </button> */}
-                <button onClick={() => { handleOpen(); setAuthAction('signIn') }}>
-                    Sign In
+                <button className={styles.btn} onClick={() => { handleOpen(); setAuthAction('signIn') }}>
+                    Sign In / Sign Up
                 </button>
             </div>
 
@@ -134,16 +130,16 @@ const SignUp = () => {
                                     </label>
                                 )}
                                 {authAction === 'signIn' && (
-                                    <button className={styles.btn} onClick={() => { handleOpen(); setAuthAction('signUp') }}>
+                                    <button className={`${styles.btn} ${styles.tan}`} onClick={() => { handleOpen(); setAuthAction('signUp') }}>
                                         Sign Up Instead
                                     </button>
                                 )}
                                 {authAction === 'signUp' && (
-                                    <button className={styles.btn} onClick={() => { handleOpen(); setAuthAction('signIn') }}>
+                                    <button className={`${styles.btn} ${styles.tan}`} onClick={() => { handleOpen(); setAuthAction('signIn') }}>
                                         Sign In Instead
                                     </button>
                                 )}
-                                <button type="submit">Sign Up</button>
+                                <button type="submit">{authAction === 'signUp' ? 'Sign Up' : 'Sign In'}</button>
                             </form>
                         </div>
                     </div>
